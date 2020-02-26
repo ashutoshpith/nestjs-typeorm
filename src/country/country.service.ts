@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Repository, Connection } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Country, CountryInput } from './type/country.entity';
+import { CountryInput, CountryDto } from './type/country.type';
+import { Country } from "src/country/type/country.entity";
 
 @Injectable()
 export class CountryService {
@@ -17,14 +18,14 @@ export class CountryService {
         return 
     }
 
-   async create(data: CountryInput):Promise<Country>{
+   async create(data: CountryInput):Promise<CountryDto>{
         const country = new Country();
         country.name = data.name;
         
         return this.ser.save(country);
     }
 
-    async findAll(skipVal: number, takeVal: number):Promise<Country[]>{
+    async findAll(skipVal: number, takeVal: number):Promise<CountryDto[]>{
         return await this.ser.find({
         skip: skipVal,
         take: takeVal,
@@ -38,13 +39,13 @@ export class CountryService {
 
     async find(
         id: number
-    ):Promise<Country>{
+    ):Promise<CountryDto>{
         return this.ser.findOneOrFail(id);
     }
     async update(
         id: number,
         data: CountryInput
-    ): Promise<Country>{
+    ): Promise<CountryDto>{
         return this.ser.save({
             ...data, id: Number(id)
         })

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { RegionService } from './region.service';
 import { RegionResolver } from './region.resolver';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Region } from './type/region.entity';
+import { Region } from 'src/region/type/region.entity';
 
 @Module({
   imports:[

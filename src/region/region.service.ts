@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Region, RegionInput } from './type/region.entity';
+import { RegionDto, RegionInput } from './type/region.type';
 import { Repository, Connection } from 'typeorm';
+import { Region } from 'src/region/type/region.entity';
 
 @Injectable()
 export class RegionService {
@@ -11,7 +12,7 @@ export class RegionService {
         private readonly connection: Connection
     ){}
 
-    async create(data: RegionInput):Promise<Region>{
+    async create(data: RegionInput):Promise<RegionDto>{
         // const region = new Region();
         // region.name = data.name;
         // region.description = data.description;
@@ -25,7 +26,7 @@ export class RegionService {
         return await this.repo.save(region);
     }
 
-    async findAll():Promise<Region[]>{
+    async findAll():Promise<RegionDto[]>{
         const regionRepo = this.connection.getRepository(Region);
         const regions = await regionRepo.find({
             relations: ['countries'],

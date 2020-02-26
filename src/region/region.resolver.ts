@@ -1,6 +1,6 @@
 import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { RegionService } from './region.service';
-import { RegionInput, Region } from './type/region.entity';
+import { RegionInput, RegionDto } from './type/region.type';
 
 @Resolver('Region')
 export class RegionResolver {
@@ -8,14 +8,14 @@ export class RegionResolver {
         private readonly ser: RegionService
     ){}
 
-    @Query(() => [Region])
-    async regions():Promise<Region[]>{
+    @Query(() => [RegionDto])
+    async regions():Promise<RegionDto[]>{
         return await this.ser.findAll();
     }
 
-    @Mutation(() => Region)
+    @Mutation(() => RegionDto)
     async createRegion(
-        @Args('data') data: RegionInput):Promise<Region>{
+        @Args('data') data: RegionInput):Promise<RegionDto>{
         return await this.ser.create(data);
     }
 

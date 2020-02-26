@@ -3,22 +3,21 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type BaseEntitySelf {
+type BaseDto {
   id: Float!
-  isActive: Boolean!
   isArchived: Boolean!
   createdBy: String!
   lastChangedBy: String!
+  isActive: Boolean!
 }
 
-type Country {
+type CountryDto {
   id: Float!
-  isActive: Boolean!
   isArchived: Boolean!
   createdBy: String!
   lastChangedBy: String!
+  isActive: Boolean!
   name: String!
-  region: Region!
 }
 
 input CountryInput {
@@ -26,27 +25,27 @@ input CountryInput {
 }
 
 type Mutation {
-  createCountries(data: CountryInput!): Country!
-  updateCountry(data: CountryInput!, id: Float!): Country!
-  deleteCountry(id: Float!): Country!
-  createRegion(data: RegionInput!): Region!
+  createCountries(data: CountryInput!): CountryDto!
+  updateCountry(data: CountryInput!, id: Float!): CountryDto!
+  deleteCountry(id: Float!): CountryDto!
+  createRegion(data: RegionInput!): RegionDto!
 }
 
 type Query {
-  countries(take: Float!, skip: Float!): [Country!]!
-  country(id: Float!): Country!
-  regions: [Region!]!
+  countries(take: Float!, skip: Float!): [CountryDto!]!
+  country(id: Float!): CountryDto!
+  regions: [RegionDto!]!
 }
 
-type Region {
+type RegionDto {
   id: Float!
-  isActive: Boolean!
   isArchived: Boolean!
   createdBy: String!
   lastChangedBy: String!
+  isActive: Boolean!
   name: String!
   description: String!
-  countries: [Country!]!
+  countries: [CountryDto!]!
 }
 
 input RegionInput {

@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CountryService } from './country.service';
-import { Country, CountryInput } from './type/country.entity';
+import { CountryDto, CountryInput } from './type/country.type';
 
 @Resolver('Country')
 export class CountryResolver {
@@ -9,38 +9,38 @@ export class CountryResolver {
     ){}
 
 
-    @Query(() => [Country])
+    @Query(() => [CountryDto])
    async countries(
        @Args('skip') skip: number,
        @Args('take') take: number
-   ):Promise<Country[]>{
+   ):Promise<CountryDto[]>{
         return this.res.findAll(skip, take);
 
     }
 
-    @Query(() => Country)
+    @Query(() => CountryDto)
     async country(
         @Args('id') id: number
-    ):Promise<Country>{
+    ):Promise<CountryDto>{
         return this.res.find(id);
     }
 
-    @Mutation(() => Country)
+    @Mutation(() => CountryDto)
     async createCountries(
         @Args('data') data: CountryInput
-    ):Promise<Country>{
+    ):Promise<CountryDto>{
         return await this.res.create(data);
     }
 
-    @Mutation(() => Country)
+    @Mutation(() => CountryDto)
     async updateCountry(
         @Args('id') id: number,
         @Args('data') data: CountryInput
-    ):Promise<Country>{
+    ):Promise<CountryDto>{
         return await this.res.update(id, data);
     }
 
-    @Mutation(() => Country)
+    @Mutation(() => CountryDto)
     async deleteCountry(
         @Args('id') id: number
     ):Promise<any>{
